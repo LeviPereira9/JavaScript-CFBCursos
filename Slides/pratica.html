@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praticando slides</title>
+    <style>
+
+        #slide{
+            display: flex;
+            flex-direction: row;
+        }
+
+        #caixa_imagem{
+            width: 640px;
+            height: 430px;
+            border: 1px solid black;
+        }
+
+        
+        .imagem{
+            color: none;
+        }
+
+        #proximo, #anterior{
+            background-color: black;
+            color: white;
+            font-size: 1.2em;
+            width: 30px;
+            border: none;
+            cursor: pointer;
+        }
+
+        #proximo:hover, #anterior:hover{
+            background-color: darkgray;
+            color: rgba(0, 0, 0, 0.733);
+        }
+
+        #anterior{
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+
+        #proximo{
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+
+        #progresso{
+            margin-top: 5px;
+            width: 640px;
+            display: grid;
+            grid-template-columns: auto auto auto auto auto;
+            column-gap: 15px;
+        }
+
+        .bolinhas{
+            margin: auto;
+            width: 15px;
+            height: 15px;
+            background-color: lightgray;
+            border: .5px solid gray;
+            border-radius: 100%;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+
+        var imagens;
+        var bolinhas;
+        var slide;
+        var imagemAtual;
+        var imagemFinal;
+        var anterior;
+        var proximo;
+        var tempo;
+        var animacao;
+
+        window.addEventListener("load", iniciar);
+
+        function iniciar(){//Inicia tudo, pega os valores para as variaveis e adiciona eventos.
+            slide = document.getElementById("slide");
+            imagens = document.getElementsByClassName("imagem")
+            esconder();//Começa escondendo as imagens, vou mudar...
+            imagemAtual = 0;
+            imagemFinal = imagens.length - 1;
+            bolinhas = document.getElementsByClassName("bolinhas");//As bolinhas em baixo do slide.
+            bolinhasMax = bolinhas.length - 1;
+            navegar_bolinhas(imagemAtual);//Vai começar colocando a primeira imagem e colocando uma bolinha em baixo dela.
+
+            tempo = 0;
+
+            anterior = document.getElementById("anterior");
+            proximo = document.getElementById("proximo");
+            
+            anterior.addEventListener("click", function anter(){//Botao anterior, vai fazer a imagem voltar para a anterior, no big deal.
+                imagemAtual--;
+                tempo = 0;
+                if(imagemAtual < 0){
+                    imagemAtual = 4;
+                }
+                 navegar_bolinhas(imagemAtual);
+                
+            })
+
+            proximo.addEventListener("click", function prox(){//Botao proximo, vai fazer a imagem ir para a próxima, no big deal.
+                imagemAtual++;
+                tempo = 0;
+                if(imagemAtual > 4){
+                    imagemAtual = 0;
+                }
+                navegar_bolinhas(imagemAtual);
+
+            })
+
+            troca();//Ultimo elemento do iniciar, ele é a nossa animação de troca de slides sozinho.
+        }
+        
+        function esconder(){//Função de esconder todos as imagens.
+            for(var c = 0; imagens.length > c; c++){
+                imagens[c].style.display = "none";
+            }
+        }
+        
+        function carregar(Atual){//Função coração, ela que vai colocar a imagem na tela, inline-block ta na imagem, none não está.
+            for(var c = 0; imagens.length > c; c++){
+                if(Atual != c){//Se o valor que o parametro receber for diferente de c, ele não vai mostrar a imagem, se não for, ele mostra.
+                    imagens[c].style.display = "none"
+                } else {
+                    imagens[Atual].style.display = "inline-block";
+                }
+            }
+        }
+
+        function navegar_bolinhas(posicao){//Uma veia direta para o coração, todas as outras funções passam por ele antes de chegar ao coração. O click, tempo e a propria navegação pelas bolinhas são feitas aqui.
+            for(var c = 0; bolinhasMax >= c; c++){
+                if(posicao != c){//Se o valor do parametro posicao for difernete de C, ele não vai enviar o parametro para o carregar e nem mudar as bolinhas, todas as outras são desativadas, codigo muito legal.
+                    bolinhas[c].style.backgroundColor="lightgray";
+                } else {
+                    imagemAtual = posicao;
+                    bolinhas[posicao].style.backgroundColor="#2BF0EC";
+                    tempo = 0;
+                    carregar(posicao);
+                }
+            }
+            //Acabei deixando esse código comentado, foi a minha primeira versão da navegação por bolinhas, mas acabei fazendo o carregar e depois pensei, que talvez fazer o mesmo no bolinhas iria funcionar e funcionou.
+/*             //Toda vez que navegamos pelas bolinhas, ele vai começar limpando todos para lightgray
+            for(var c = 0; bolinhas.length > c; c++){
+                bolinhas[c].style.backgroundColor="lightgray";
+            }
+            //Ai chama o switch que vai pintar e mudar a imagem lá dentro.
+            switch(posicao){
+                case 0:
+                    imagemAtual = 0;
+                    bolinhas[posicao].style.backgroundColor="#2BF0EC"
+                    carregar(posicao);
+                    break
+                case 1:
+                    imagemAtual = 1;
+                    bolinhas[posicao].style.    backgroundColor="#2BF0EC"  
+                    carregar(posicao);
+                    break
+                case 2:
+                    imagemAtual = 2;
+                    bolinhas[posicao].style.backgroundColor="#2BF0EC"
+                    carregar(posicao);
+                    break
+                case 3:
+                    imagemAtual = 3;
+                    bolinhas[posicao].style.backgroundColor="#2BF0EC"
+                    carregar(posicao);
+                    break
+                case 4:
+                    imagemAtual = 4;
+                    bolinhas[posicao].style.backgroundColor="#2BF0EC"
+                    carregar(posicao);
+                    break
+            } */
+        }
+
+        function troca(){//Animação da troca, ele vai aumentar o valor do tempo e quando chegar a 200 ele vai zerar e aumentar o valor da imagem, se chegar a mais de 4, ele zera. Ele mesmo se chama após a primeira chamada no iniciar.
+            tempo++;
+            if(tempo >= 200){                
+                imagemAtual++;
+                tempo=0;
+                if(imagemAtual > 4){
+                    imagemAtual = 0;
+                }
+
+                navegar_bolinhas(imagemAtual);
+            }
+
+            animacao = requestAnimationFrame(troca);
+        }
+        
+    </script>
+</head>
+<body>
+    <div id="slide">
+        <button id="anterior">&lt</button>
+        <div id="caixa_imagem">
+            <div class="imagem"><img src="pratica/s1.jpg" alt="slide 1"></div>
+            <div class="imagem"><img src="pratica/s2.jpg" alt="slide 2"></div>
+            <div class="imagem"><img src="pratica/s3.jpg" alt="slide 3"></div>
+            <div class="imagem"><img src="pratica/s4.jpg" alt="slide 4"></div>
+            <div class="imagem"><img src="pratica/s5.jpg" alt="slide 5"></div>
+        </div>
+        <button id="proximo">&gt</button>
+    </div>
+    
+    <div id="progresso">
+        <div class="bolinhas" onclick="navegar_bolinhas(0)"></div>
+        <div class="bolinhas" onclick="navegar_bolinhas(1)"></div>
+        <div class="bolinhas" onclick="navegar_bolinhas(2)"></div>
+        <div class="bolinhas" onclick="navegar_bolinhas(3)"></div>
+        <div class="bolinhas" onclick="navegar_bolinhas(4)"></div>
+    </div>
+</body>
+</html>

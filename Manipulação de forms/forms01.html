@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manipulando formulários com JavaScript</title>
+    <style>
+        input{
+            margin: 15px 0px 5px 0px;
+        }
+    </style>
+</head>
+<body>
+    <form action="#" name="curso1" id="curso1" method="get">
+        <label for="teste">Nome</label>
+        <input type="text" name="fNome" id="teste" value="Primeiro - 1">
+
+        <br>
+
+        <label for="senha">Senha</label>
+        <input type="password" name="fSenha" id="senha" value="123">
+
+        <br>
+        
+        <input type="submit" value="Enviar" name="fEnviar">
+    </form>
+
+    <hr>
+
+    </form>
+    <script>
+
+        //var fm = document.forms[0].id
+        //var fm = document.forms.namedItem("curso2").innerHTML;
+        //var fm = document.forms['curso1'].elements[0].value;
+        //document.write(fm);
+
+        var fm = document.forms[0];
+        var el = fm.elements;
+
+        for (var c = 0; el.length > c; c++){
+            el[c].style.backgroundColor="lightgray";
+        }
+
+        //el[0].style.backgroundColor="lightgray";
+        //el[0].value="Digite aqui";
+
+        document.write(document.getElementById('curso1').elements[0].value)
+    </script>
+
+</body>
+</html>

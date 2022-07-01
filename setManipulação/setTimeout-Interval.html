@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SetTimeout & Interval</title>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            background-color: white;
+        }
+    </style>
+    <script>
+        var tmp;
+        window.addEventListener("load", addEvents)
+        window.addEventListener("load",mudaCor);
+
+        
+        function addEvents(){
+            var bt1 = document.getElementById("bt1");
+            var bt2= document.getElementById("bt2");
+            bt1.addEventListener("click", iniciar);
+            bt2.addEventListener("click", parar);
+        }
+        
+        function iniciar(){
+            tmp = setInterval(mudaCor, 500);
+            bt1.disabled = true;
+        }
+        
+        function mudaCor(){
+            var caixa = document.getElementById("div");
+            var r = Math.floor(Math.random()*255);
+            var g = Math.floor(Math.random()*255);
+            var b = Math.floor(Math.random()*255);
+            caixa.style.backgroundColor=`rgb(${r},${g},${b})`;
+        }
+
+        function parar(){
+            clearInterval(tmp);
+            bt1.disabled = false;
+        }
+        
+
+
+    </script>
+</head>
+<body>
+    <div id="div"></div>
+    <br>
+    <button id="bt1">Iniciar</button>
+    <button id="bt2">Parar</button>
+</body>
+</html>

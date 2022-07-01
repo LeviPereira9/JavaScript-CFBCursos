@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praticando</title>
+    <style>
+        div{
+            border: 1px solid green;
+            background-color: aliceblue;
+            color: red;
+            font-size: 2em;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+    </style>
+    <script>
+        var caixa;
+        var pY;
+        var pX;
+        var dY;
+        var dX;
+        var vel = 1;
+        var hora;
+        var minuto;
+        var segundos;
+
+        window.addEventListener("load", addEvents);
+        window.addEventListener("load", relogio);
+        window.addEventListener("load", mover)
+        
+        function relogio(){
+            var data = new Date();
+            hora = data.getHours();
+            minuto = data.getMinutes();
+            segundos = data.getSeconds();
+            caixa.innerHTML = `${hora}:${minuto}:${segundos}`;
+        }
+
+        setInterval(relogio, 1000);
+
+        function addEvents(){
+            caixa = document.getElementById("div");
+            caixa.addEventListener("click", iniciar);
+        }
+
+        function iniciar(){
+            pY = 0;
+            pX = 0;
+            dY = 0;
+            dX = 0;
+            document.addEventListener("keydown", controlesD);
+            document.addEventListener("keyup", controlesU);
+        }
+        function controlesD(){
+            var teclasD = event.key;
+
+            switch(teclasD){
+                case "ArrowLeft":
+                    dX = -1;
+                    break
+                case "ArrowUp":
+                    dY = -1;
+                    break
+                case "ArrowRight":
+                    dX = 1;
+                    break
+                case "ArrowDown":
+                    dY = 1;
+                    break
+            }
+        }
+
+        function controlesU(){
+            var teclasU = event.key;
+
+            switch(teclasU){
+                case "ArrowLeft":
+                    dX = 0;
+                    break
+                case "ArrowUp":
+                    dY = 0;
+                    break
+                case "ArrowRight":
+                    dX = 0;
+                    break
+                case "ArrowDown":
+                    dY = 0;
+                    break
+            }
+        }
+
+        function mover(){
+            pX += dX * vel;
+            pY += dY * vel;
+            caixa.style.left = pX + "px";
+            caixa.style.top = pY + "px";
+        }
+
+        setInterval(mover, .1)
+
+    </script>
+</head>
+<body>
+    <div id="div"></div>
+</body>
+</html>

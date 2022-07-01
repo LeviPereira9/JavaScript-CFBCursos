@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursividade</title>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            background-color: red;
+        }
+    </style>
+
+    <script>
+
+        function contador(min, max){
+            document.write(min+"<br>");
+            if(min<max){
+                contador(++min,max);
+            }
+        }
+
+        contador(0,10);
+
+        function fatorial(n){
+            if(n==1){
+                return 1;
+            } else{
+            return n*fatorial(n-1);
+            }
+        }
+
+        document.write(fatorial(5));
+        
+    </script>
+</head>
+<body>
+    <div id="caixa"></div>
+    <script>
+        var caixa = document.getElementById("caixa");
+        var angulo = 0;
+        var anima;
+        gira()
+        
+        function gira(){
+            caixa.style.transform=`rotate(${angulo}deg)`
+            angulo++;
+            if(angulo>360){
+                angulo = 0
+            }
+
+            anima = requestAnimationFrame(gira);
+        }
+    </script>
+</body>
+</html>

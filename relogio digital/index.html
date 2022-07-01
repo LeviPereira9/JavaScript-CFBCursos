@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relogio digital</title>
+    <style>
+        div{
+            width: 100px;
+            height: 25px;
+            border: 1px solid green;
+            background-color: aliceblue;
+            font-size: 1.4em;
+            color: darkgreen;
+            text-align: center;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", relogio)
+
+        function relogio(){
+            var data = new Date();
+            var hora = data.getHours();
+            var minutos = data.getMinutes();
+            var segundos = data.getSeconds();
+
+            if (hora < 10){
+                hora = "0" + hora;
+            }
+
+            if (minutos < 10) {
+                minutos = "0" + hora;
+            }
+
+            if (segundos < 10) {
+                segundos = "0" + segundos;
+            }
+
+            var caixa = document.getElementById("div");
+            caixa.innerHTML=`${hora}:${minutos}:${segundos}`
+        }
+
+        setInterval(relogio, 1000)
+        
+    </script>
+</head>
+<body>
+    <div id="div"></div>
+</body>
+</html>

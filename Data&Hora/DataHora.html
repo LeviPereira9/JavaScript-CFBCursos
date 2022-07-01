@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manipular Data e Hora</title>
+</head>
+<body>
+    <div id="msg"></div>
+
+    <script>
+        var msg = document.getElementById('msg');
+
+        var dt = new Date();
+
+        var ndt = new Date();
+        
+       // ndt.setDate(dt.getDate()+5)
+
+        var dia = ndt.getDate();
+
+        var hoje = ndt.getDay();
+        var hoje2 = ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sabado']
+    
+        var mes = ndt.getMonth()
+        
+        var meses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro']
+
+        var horas = dt.getHours();
+        var min = dt.getMinutes();
+        var segundos = dt.getSeconds();
+        var mili = dt.getMilliseconds()
+
+        msg.innerHTML=`Hoje é uma ${hoje2[hoje]} dia ${dia} do ${meses[mes]} <br> Hora: ${horas}:${min}:${segundos}:${mili}`
+
+    </script>
+
+</body>
+</html>

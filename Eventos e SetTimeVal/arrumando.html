@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melhorando o cubo!</title>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            background-color: red;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+    </style>
+    <script>
+        var direcaoX;
+        var direcaoY;
+        var posicaoX;
+        var posicaoY;
+        var velocidade;
+        var caixa;
+        var intervalo;
+
+        window.addEventListener("load", iniciar);
+
+        function iniciar(){
+            direcaoX = 0;
+            direcaoY = 0;
+            posicaoX = 0;
+            posicaoY = 0;
+            velocidade = 2;
+            caixa = document.getElementById("div");
+            caixa.addEventListener("click", ativar);
+            intervalo = setInterval(enterFrame, 1);
+        }
+
+        function ativar(){
+            alert("Eventos de movimentação iniciados")
+            document.addEventListener("keydown", teclaDown)
+            document.addEventListener("keyup", teclaUp)
+        }
+        
+        function teclaDown(){
+            var teclaD = event.key;
+
+            switch(teclaD){
+                case "ArrowLeft":
+                    direcaoX=-1;
+                    break
+                case "ArrowUp":
+                    direcaoY=-1;
+                    break
+                case "ArrowRight":
+                    direcaoX=1;
+                    break
+                case "ArrowDown":
+                    direcaoY=1;
+                    break
+                case "Enter":
+                    alert("Eventos de movimnetação desligados");
+                    document.removeEventListener("keydown", teclaDown);
+            }
+        }
+        
+        function teclaUp(){
+            var teclaU = event.keyCode;
+
+            switch(teclaU){
+                case 37:
+                    direcaoX = 0;
+                    break
+                case 38:
+                    direcaoY = 0;
+                    break
+                case 39:
+                    direcaoX = 0;
+                    break
+                case 40:
+                    direcaoY = 0;
+                    break
+            }
+        }
+
+        function enterFrame(){
+            //Entendi, direcaoX sempre vai ter esse valores, pois quando apertamos a tecla novamente, esse valor será enviado novamente para o posicaoX ou Y e assim somando com o numero anterior, quando soltamos ele recebe 0 e x + 0 = x.
+
+            //A pira é, que quando fazia isso antes, esse controle de atribuir a movimentação estava ligada diretamente ao switch, mas agora ele só vai passar os valores da movimentação, enquanto a posição vai movimentar a caixa.
+
+            //E a velocidade está ali para controlarmos quantos pixeis a caixa vai se mover a cada pressionada no botão, pois a direcao sempre tera valor -1 e 1.
+
+
+            posicaoX+=direcaoX*velocidade;
+            console.log(posicaoX);
+            posicaoY+=direcaoY*velocidade;
+            console.log(posicaoY);
+            caixa.style.left = posicaoX+"px";
+            caixa.style.top = posicaoY+"px";
+        }
+    </script>
+</head>
+<body>
+    <div id="div"></div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercicio KeyDown</title>
+
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            border: 1px solid black;
+        }
+    </style>
+    
+    <script>
+        x = 0;
+        y = 0;
+
+        window.addEventListener("load", addEvents);
+
+        function addEvents(){
+            var caixa = document.getElementById("div");
+            caixa.addEventListener("click", ativar);
+        }
+
+        function ativar(){
+            alert("Evento KeyDown ativado");
+            this.style.backgroundColor = "red";
+            document.addEventListener("keydown", move)
+        }
+
+        function move(){
+            var caixa = document.getElementById("div");
+            tecla = event.keyCode;
+
+            switch (tecla){
+                case 37:
+                    x-=15;
+                    caixa.style.left = x+"px";
+                    break
+                case 38:
+                    y-=15;
+                    caixa.style.top = y+"px";
+                    break
+                case 39:
+                    x+=15;
+                    caixa.style.left = x+"px";
+                    break
+                case 40:
+                    y+=15;
+                    caixa.style.top = y+"px";
+                    break
+                case 13:
+                    alert("Evento KeyDown desligado")
+                    this.removeEventListener("keydown", move)
+                    break
+            }
+        }
+
+    </script>
+    
+</head>
+<body>
+    <div id="div"></div>
+
+</body>
+</html>

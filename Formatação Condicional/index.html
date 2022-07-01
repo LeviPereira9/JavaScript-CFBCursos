@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formatação Condicional</title>
+    <style>
+        table{
+            table-layout: fixed;
+            border-collapse: collapse;
+            border-spacing: 0px 0px;
+
+        }
+
+        td, th {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="titulo"></div>
+
+    <table id="tabela">
+        <tr>
+            <th>Alunos</th>
+            <th>Nota 1</th>
+            <th>Nota 2</th>
+            <th>Resultado</th>
+        </tr>
+        <tr>
+            <td>Matheus</td>
+            <td>35</td>
+            <td>48</td>
+            <td class="notas"></td>
+        </tr>
+        <tr>
+            <td>Julia</td>
+            <td>20</td>
+            <td>15</td>
+            <td class="notas"></td>
+        </tr>
+        <tr>
+            <td>Augusto</td>
+            <td>48</td>
+            <td>48</td>
+            <td class="notas"></td>
+        </tr>
+        <tr>
+            <td>Marcelo</td>
+            <td>20</td>
+            <td>50</td>
+            <td class="notas"></td>
+        </tr>
+    </table>
+
+    <script>
+
+        var tabela = document.getElementById("tabela");
+        var nota;
+        var rowCount = tabela.rows.length;
+        
+        for(var c = 1; rowCount > c; c++){
+            nota = Number(tabela.rows[c].cells[1].innerHTML) + Number(tabela.rows[c].cells[2].innerHTML);
+
+            tabela.rows[c].cells[3].innerHTML = nota;
+        }
+
+        var notas = document.getElementsByClassName("notas");
+
+        for(var c = 0; notas.length > c; c++){
+            if(notas[c].innerHTML < 70){
+                notas[c].style.color="red";
+            } else {
+                notas[c].style.color="blue";
+            }
+        }
+
+    </script>
+</body>
+</html>

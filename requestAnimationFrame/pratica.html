@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praticando requestAnimationFrame</title>
+    <style>
+        body{
+            overflow: hidden;
+        }
+
+        div{
+            width: 50px;
+            height: 50px;
+            background-color: purple;
+            border: 1px solid black;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+    </style>
+    <script>
+        var jogador;
+        var direcaoX;
+        var direcaoY;
+        var posicaoX;
+        var posicaoY;
+        var velocidade;
+        var lagura;
+        var altura;
+        var anima;
+        var angulo;
+        
+        window.addEventListener("load", iniciar);
+        window.addEventListener("load", mover);
+        window.addEventListener("load", gira)
+
+        function iniciar(){
+            jogador = document.getElementById("jogador");
+            direcaoX = 0;
+            direcaoY = 0;
+            posicaoX = 0;
+            posicaoY = 0;
+            angulo = 0
+            velocidade = 1;
+            largura = screen.availWidth-50;
+            altura = screen.availHeight-125;
+          //  document.addEventListener("keydown", teclasDown);
+          //  document.addEventListener("keyup", teclasUp);
+        }
+
+        /* function teclasDown(){
+            teclasD = event.key;
+
+            switch(teclasD){
+                case "ArrowLeft":
+                    direcaoX = -1;
+                    break
+                case "ArrowRight":
+                    direcaoX = 1;
+                    break
+                case "ArrowUp":
+                    direcaoY = -1;
+                    break
+                case "ArrowDown":
+                    direcaoY = 1;
+            }
+        } */
+
+        /* function teclasUp(){
+            teclasU = event.key;
+            
+            switch(teclasU){
+                case "ArrowLeft":
+                    direcaoX = 0;
+                    break
+                case "ArrowRight":
+                    direcaoX = 0;
+                    break
+                case "ArrowUp":
+                    direcaoY = 0;
+                    break
+                case "ArrowDown":
+                    direcaoY = 0;
+            }
+        } */
+
+        function mover(){
+            posicaoX += direcaoX * velocidade;
+            posicaoY += direcaoY * velocidade;
+            jogador.style.left = posicaoX + "px";
+            jogador.style.top = posicaoY + "px";
+
+            if(posicaoX > largura){
+                direcaoX = Math.round(Math.random() * -1);//Vai pra esquerda.
+            } else if(posicaoX <= 0){
+                direcaoX = Math.round(Math.random() * 1);//Vai pra direita.
+            } else if(posicaoY > altura){
+                direcaoY = Math.round(Math.random() * -1);//Vai para cima.
+            } else if(posicaoY <= 0){
+                direcaoY = Math.round(Math.random() * 1);//Vai para baixo.
+            }
+
+            anima = requestAnimationFrame(mover);
+        }
+
+        function gira(){
+            jogador.style.transform=`rotate(${angulo}deg)`
+            angulo++;
+            if(angulo>360){
+                angulo = 0
+            }
+
+            anima = requestAnimationFrame(gira);
+        }
+        
+
+    </script>
+</head>
+<body>
+    <div id="jogador"></div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base para movimentação de jogos</title>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            background-color: white;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+    </style>
+    <script>
+        PositionX = 0;
+        PositionY = 0;
+        caixa = "";
+        window.addEventListener("load", addEvents);
+
+        function addEvents(){
+            caixa = document.getElementById("div");
+            caixa.addEventListener("click", iniciar)
+        }
+
+        function iniciar(){
+            alert("Evento KeyDown ativado");
+            document.addEventListener("keydown", mover)
+            caixa.style.backgroundColor = "red";
+        }
+
+        function mover(){
+            teclas = event.keyCode;
+
+            switch(teclas){
+                case 37: 
+                    PositionX -= 15;
+                    caixa.style.left = PositionX+"px";
+                    break
+                case 38:
+                    PositionY -= 15;
+                    caixa.style.top = PositionY+"px";
+                    break
+                case 39:
+                    PositionX += 15;
+                    caixa.style.left = PositionX+"px";
+                    break
+                case 40:
+                    PositionY +=15;
+                    caixa.style.top = PositionY+"px";
+                    break
+                case 13:
+                    alert("Evento KeyDown desligado")
+                    document.removeEventListener("keydown", mover)
+                    break
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="div"></div>
+</body>
+</html>

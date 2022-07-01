@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio dos slides</title>
+    <style>
+        #slider{
+            width: 1000px;
+            height: 300px;
+            border: 1px solid black;
+            background-color: gray;
+        }
+    </style>
+    <script>
+        
+        var imagens = [];
+        var slider;
+        var imagemAtual;
+        var imagemMaxima;
+        var anterior;
+        var proximo;
+        var anima;
+        
+
+        window.addEventListener("load", iniciar);
+
+        function iniciar(){
+            slider = document.getElementById("slider");
+            preCarregamento();
+            imagemAtual = 0;
+            imagemMaxima = imagens.length - 1;
+            carregarImagem(imagemAtual);
+
+            anterior = document.getElementById("anterior");
+            proximo = document.getElementById("proximo");
+
+            anterior.addEventListener("click", ante);
+            proximo.addEventListener("click", prox);
+            
+            anima = setInterval(troca, 5000)
+        }
+        
+        function preCarregamento(){
+            var s = 1;
+
+            for(var c = 0; 5 > c; c++){
+                imagens[c] = new Image();
+                imagens[c].src = `imgs/sl${s}.jpg`;
+                s++;
+            }
+        }
+
+        function carregarImagem(indice){
+            slider.style.backgroundImage = `url("${imagens[indice].src}")`
+        }
+
+        function troca(){
+            imagemAtual++
+            if(imagemAtual>imagemMaxima){
+                imagemAtual=0;
+            }
+            carregarImagem(imagemAtual);
+            
+        }
+
+        function ante(){
+            imagemAtual--
+
+            if(imagemAtual < 0){
+                imagemAtual = 4;
+            }
+
+            carregarImagem(imagemAtual);
+        }
+
+        function prox(){
+            imagemAtual++
+            
+            if(imagemAtual > imagemMaxima){
+                imagemAtual = 0;
+            }
+                carregarImagem(imagemAtual);
+            
+        }
+
+    </script>
+</head>
+<body>
+    <div id="slider"></div>
+    <br>
+    <button id="anterior">Anterior</button>
+    <button id="proximo">Próximo</button>
+</body>
+</html>

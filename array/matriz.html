@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matriz</title>
+</head>
+<body>
+    <h1 id="msg"></h1>
+    <script>
+        var mochila = [];
+
+        var item1 = ['Corda', 2],
+            item2 = ['Faca', 1],
+            item3 = ['Cura', 5],
+            item4 = ['Prego', 35];
+
+        mochila.push(item1);
+        mochila.push(item2);
+        mochila.push(item3);
+        mochila.push(item4);
+
+        for(var c = 0; mochila.length > c; c++){
+            document.write(`<br> ${mochila[c][0]} - ${mochila[c][1]}`)
+        }
+
+        var num = 10
+
+        while(num--){
+            document.write('Olá <br>')
+        }
+
+
+    </script>
+</body>
+</html>
