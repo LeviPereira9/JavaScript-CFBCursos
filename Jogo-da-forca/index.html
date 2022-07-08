@@ -241,14 +241,14 @@
             }
 
             if(acerto >= tamanho_palavra){
-                confirma = confirm(`Parabéns, você acertou o ${temas[tema_aleatorio]}! Gostaria de jogar novamente?`)
+                confirma = confirm(`Parabéns, você acertou o ${temas[tema_aleatorio]}! \n Gostaria de jogar novamente?`)
                 if(confirma == true){
                     gerar();
                     corpoTela();
                 }
 
             } else if(erro >= 6){
-                confirma = confirm(`Desculpe, você errou, o ${temas[tema_aleatorio]} era ${topicos[tema_aleatorio][palavra_aleatoria]}, Gostaria de jogar novamente?`)
+                confirma = confirm(`Desculpe, você errou, o ${temas[tema_aleatorio]} era ${topicos[tema_aleatorio][palavra_aleatoria]}. \n Gostaria de jogar novamente?`)
                 if(confirma == true){
                     gerar();
                     corpoTela();
