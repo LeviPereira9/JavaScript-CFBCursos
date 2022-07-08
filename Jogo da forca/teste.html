@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul{
+            display: none;
+        }
+    </style>
+    <script>
+
+        var temas = [];
+        var topicos = [];
+        var t_animais = [];
+        var t_chapeus = [];
+        var t_filmes = [];
+        var animal;
+        var chapeu;
+        var filme;
+        var info_palavra;
+        var caixa;
+
+        window.addEventListener("load", gerar);
+
+        function gerar(){
+            caixa = 
+            animal = document.getElementsByClassName("a_palavra");
+            chapeu = document.getElementsByClassName("c_palavra");
+            filme = document.getElementsByClassName("f_palavra");
+
+            for(var c = 0; animal.length - 1 >= c; c++){
+                t_animais.push(animal[c].textContent)
+            }
+
+            for(var c = 0; chapeu.length - 1 >= c; c++){
+                t_chapeus.push(chapeu[c].textContent)
+            }
+
+            for(var c = 0; filme.length - 1 >= c; c++){
+                t_filmes.push(filme[c].textContent)
+            }
+
+            topicos.push(t_animais);
+            topicos.push(t_chapeus);
+            topicos.push(t_filmes);
+
+            info_palavra = topicos[0][3];
+            
+            var tese = info_palavra;
+
+            var resultado = tese.split("");
+
+            document.write(resultado[4])
+
+            for(var c = 0; 101> c; c++){
+                if(resultado[c] == "e"){
+                    document.write(resultado[c])
+                }
+            }
+        }
+    
+    </script>
+</head>
+<body>
+    <ul id="animal">
+        <div class="a_palavra">cavalo</div>
+        <div class="a_palavra">porco</div>
+        <div class="a_palavra">vaca</div>
+        <div class="a_palavra">elefante</div>
+        <div class="a_palavra">girafa</div>
+    </ul>
+    <ul id="chapeu">
+        <div class="c_palavra">palha</div>
+        <div class="c_palavra">boina</div>
+        <div class="c_palavra">cowboy</div>
+        <div class="c_palavra">bruxa</div>
+        <div class="c_palavra">normal</div>
+    </ul>
+    <ul id="filmes">
+        <div class="f_palavra">morbius</div>
+        <div class="f_palavra">titanic</div>
+        <div class="f_palavra">batman</div>
+        <div class="f_palavra">coringa</div>
+        <div class="f_palavra">shrek</div>
+    </ul>
+</section>
+
+<div id="caixa">
+
+</div>
+</body>
+</html>

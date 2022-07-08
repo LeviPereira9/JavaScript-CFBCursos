@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metodos PT2: Search, Replace, CharAt,CharCodeAt, FromChatCode, Concat</title>
+</head>
+<body>
+    <p id="txt">CFB Cursos - Curso de JavaScript</p>
+
+    <script>
+        var n = 2;
+        var texto = document.getElementById("txt").textContent;
+        var txt2=" - Aula 46 do curso de javascript";
+
+        var res = texto.concat(txt2,"cavalo");
+
+        document.write(res);
+    </script>
+</body>
+</html>

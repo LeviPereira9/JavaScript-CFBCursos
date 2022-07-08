@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manipulando Strings</title>
+</head>
+<body>
+    
+    <p id="txt">CFB Cursos - Cursos de JavaScript - Aula 46 de javascript</p>
+
+    <script>
+        
+        var cavalo;
+
+        var texto = document.getElementById("txt").textContent;
+
+        
+        var resultado = texto.match(/\w/ig);
+
+        document.write(resultado + resultado.length)
+
+        document.write(resultado[1])
+
+    </script>
+
+</body>
+</html>

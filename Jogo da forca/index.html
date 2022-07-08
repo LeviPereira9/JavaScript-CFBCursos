@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da forca</title>
+    <style>
+        ul{
+            display: none;
+        }
+
+        #boneco{
+            margin-left: 10px;
+            display: grid;
+            column-gap: 0px;
+            row-gap: 0px;
+            grid-template-columns: auto auto auto;
+            grid-template-areas: 
+                ". head ."
+                "left_arm chest right_arm "
+                "left_leg . right_leg"
+            ;
+            width: 50px;
+            height: 200px;
+        }
+
+
+/*         .corpo{
+            display: none;
+        } */
+
+        #cabeca{
+            grid-area: head;
+            background-color: black;
+            width: 40px;
+            height: 40px;
+            border: 1px solid black;
+            border-radius: 100%;
+
+        }
+        
+        #peito{
+            grid-area: chest;
+            background-color: black;
+            width: 5px;
+            height: 70px;
+            border: 1px solid black;
+            margin-left: 18px;
+        }
+
+        #braco_e{
+            transform: rotate(30deg);
+            grid-area: left_arm;
+            background-color: black;
+            height: 30px;
+            width: 5px;
+        }
+
+        #braco_d{
+            transform: rotate(-30deg);
+            grid-area: right_arm;
+            background-color: black;
+            height: 30px;
+            width: 5px;
+        }
+
+        #perna_e{
+            transform: rotate(30deg);
+            grid-area: left_leg;
+            background-color: black;
+            height: 50px;
+            width: 5px;
+        }
+
+        #perna_d{
+            transform: rotate(-30deg);
+            grid-area: right_leg;
+            background-color: black;
+            height: 50px;
+            width: 5px;
+        }
+        
+        #caixa{
+            margin-top: 150px;
+            display: flex;
+            justify-content: center;
+            width: 420px;
+        }
+
+
+        .escrita{
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+            line-height: 5px;
+            width: 25px;
+            height: 20px;
+            margin: 0px 5px 0px 5px;
+            border-bottom: 1px solid black;
+        }
+
+        #letras{
+            margin-top: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 420px;
+        }
+
+        button{
+            background-color: black;
+            color: white;
+            border: 1px solid green;
+            border-radius: 5px;
+            margin: 2.5px 5px 2.5px 5px;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        button:hover{
+            background-color: rgb(53, 53, 53);
+        }
+    </style>
+    <script>
+        var temas = ["Animal", "Chapéu", "Filme"];
+        var topicos = [];
+        var t_animais = [];
+        var t_chapeus = [];
+        var t_filmes = [];
+        var animal;
+        var chapeu;
+        var filme;
+        var titulo;
+        var tema_aleatorio;
+        var palavra_aleatoria;
+        var info_palavra;
+        var tamanho_palavra;
+        var caixa;
+        var escrita;
+        var c_escrita;
+        var resultado;
+        var corpo;
+        var verificar;
+        var controle_acerto;
+        var controle_erro;
+        var acerto;
+        var erro;
+        var posicao_letra;
+        var validar_letra;
+        var teclas;
+        var confirma;
+        var  v_cor;
+
+
+        window.addEventListener("load", gerar);
+        window.addEventListener("load", corpoTela);
+
+        function gerar(){
+            animal = document.getElementsByClassName("a_palavra");
+            chapeu = document.getElementsByClassName("c_palavra");
+            filme = document.getElementsByClassName("f_palavra");
+
+            for(var c = 0; animal.length - 1 >= c; c++){
+                t_animais.push(animal[c].textContent)
+            }
+
+            for(var c = 0; chapeu.length - 1 >= c; c++){
+                t_chapeus.push(chapeu[c].textContent)
+            }
+
+            for(var c = 0; filme.length - 1 >= c; c++){
+                t_filmes.push(filme[c].textContent)
+            }
+
+            topicos.push(t_animais);
+            topicos.push(t_chapeus);
+            topicos.push(t_filmes);
+            
+            //Agora trabalhamos com topico[Tema][Palavra]
+            sortear()
+
+            acerto = 0;
+            erro = 0;
+        }
+        
+        function sortear(){
+            tema_aleatorio = Math.round(Math.random()*2);
+            palavra_aleatoria = Math.round(Math.random()*4);
+
+            personalizar(tema_aleatorio, palavra_aleatoria)            
+        }
+
+        function personalizar(tema, palavras){
+            caixa = document.getElementById("caixa");
+            titulo = document.getElementById("tema");
+
+            titulo.textContent = `Tema: ${temas[tema]}`
+
+            info_palavra = topicos[tema][palavras];
+            tamanho_palavra = info_palavra.length;
+
+            for(var c = 0; tamanho_palavra > c; c++){
+                escrita = document.createElement("div");
+                escrita.setAttribute("class", "escrita")
+                caixa.appendChild(escrita);
+            }
+
+        }
+
+        function corpoTela(){
+            c_escrita = document.getElementsByClassName("escrita");
+            resultado = info_palavra.split("");
+            corpo = document.getElementsByClassName("corpo");
+
+            for(var c = 0; 5 >= c; c++){
+                corpo[c].style.display = "none";
+            }
+        }
+
+        function letra(letrinha){       
+            validar_letra = letrinha;     
+            controle_acerto = 0;
+            controle_erro = 0;
+            for(var c = 0; tamanho_palavra > c; c++){
+                verificar = resultado[c].localeCompare(letrinha);
+                
+                if(verificar == 0){
+                    c_escrita[c].textContent = `${letrinha}`
+                    controle_acerto++;
+                    acerto++;
+                    v_cor = true;
+                } else{
+                    controle_erro++;
+                    if((controle_erro - controle_acerto) >= tamanho_palavra){
+                        corpo[erro].style.display = "grid";
+                        erro++;  
+                        v_cor = false;
+                    }
+                }
+            }
+
+            if(acerto >= tamanho_palavra){
+                confirma = confirm(`Parabéns, você acertou o ${temas[tema_aleatorio]}! Gostaria de jogar novamente?`)
+                if(confirma == true){
+                    gerar();
+                    corpoTela();
+                }
+
+            } else if(erro >= 6){
+                confirma = confirm(`Desculpe, você errou, o ${temas[tema_aleatorio]} era ${topicos[tema_aleatorio][palavra_aleatoria]}, Gostaria de jogar novamente?`)
+                if(confirma == true){
+                    gerar();
+                    corpoTela();
+                }
+            }
+            
+            verificarTecla(validar_letra);
+            v_cor="";
+        }
+
+
+
+        function verificarTecla(teclinha){
+            teclas = document.getElementsByClassName("tecla");
+
+            for(var c = 0; teclas.length > c; c++){
+                if(teclas[c].textContent == teclinha && v_cor == true){
+                    teclas[c].style.backgroundColor = "lightgreen";
+                    teclas[c].disabled = true;
+                } else if(teclas[c].textContent == teclinha && v_cor == false){
+                    teclas[c].style.backgroundColor = "lightcoral";
+                    teclas[c].disabled = true;
+                }
+            }
+            
+            //validei = "";
+        }
+
+    </script>
+</head>
+<body>
+
+
+    <main>
+        <header>
+            <h1 id="tema">Tema: </h1>
+        </header>
+        
+        <section>
+            <ul id="animal">
+                <div class="a_palavra">CAVALO</div>
+                <div class="a_palavra">PORCO</div>
+                <div class="a_palavra">VACA</div>
+                <div class="a_palavra">ELEFANTE</div>
+                <div class="a_palavra">GIRAFA</div>
+            </ul>
+            <ul id="chapeu">
+                <div class="c_palavra">PALHA</div>
+                <div class="c_palavra">BOINA</div>
+                <div class="c_palavra">COWBOY</div>
+                <div class="c_palavra">BRUXA</div>
+                <div class="c_palavra">NORMAL</div>
+            </ul>
+            <ul id="filmes">
+                <div class="f_palavra">MORBIUS</div>
+                <div class="f_palavra">TITANIC</div>
+                <div class="f_palavra">BATMAN</div>
+                <div class="f_palavra">CORINGA</div>
+                <div class="f_palavra">SHREK</div>
+            </ul>
+        </section>
+        
+        <section>
+            <div id="boneco">
+                <div class="corpo" id="cabeca"></div>
+                <div class="corpo" id="braco_e"></div>
+                <div class="corpo" id="peito"></div>
+                <div class="corpo" id="braco_d"></div>
+                <div class="corpo" id="perna_e"></div>
+                <div class="corpo" id="perna_d"></div>
+            </div>
+        </section>
+        <section>
+            <div id="caixa">
+<!--                 <div class="escrita"></div>
+                <div class="escrita"></div>
+                <div class="escrita"></div>
+                <div class="escrita"></div>
+                <div class="escrita"></div>
+                <div class="escrita"></div> -->
+            </div>
+        </section>
+        <section>
+            <div id="letras">
+                <button class="tecla" onclick="letra('Q')">Q</button>
+                <button class="tecla" onclick="letra('W')">W</button>
+                <button class="tecla" onclick="letra('E')">E</button>
+                <button class="tecla" onclick="letra('R')">R</button>
+                <button class="tecla" onclick="letra('T')">T</button>
+                <button class="tecla" onclick="letra('Y')">Y</button>
+                <button class="tecla" onclick="letra('U')">U</button>
+                <button class="tecla" onclick="letra('I')">I</button>
+                <button class="tecla" onclick="letra('O')">O</button>
+                <button class="tecla" onclick="letra('P')">P</button>
+                <button class="tecla" onclick="letra('A')">A</button>
+                <button class="tecla" onclick="letra('S')">S</button>
+                <button class="tecla" onclick="letra('D')">D</button>
+                <button class="tecla" onclick="letra('F')">F</button>
+                <button class="tecla" onclick="letra('G')">G</button>
+                <button class="tecla" onclick="letra('H')">H</button>
+                <button class="tecla" onclick="letra('J')">J</button>
+                <button class="tecla" onclick="letra('K')">K</button>
+                <button class="tecla" onclick="letra('L')">L</button>
+                <button class="tecla" onclick="letra('Ç')">Ç</button>
+                <button class="tecla" onclick="letra('Z')">Z</button>
+                <button class="tecla" onclick="letra('X')">X</button>
+                <button class="tecla" onclick="letra('C')">C</button>
+                <button class="tecla" onclick="letra('V')">V</button>
+                <button class="tecla" onclick="letra('B')">B</button>
+                <button class="tecla" onclick="letra('N')">N</button>
+                <button class="tecla" onclick="letra('M')">M</button>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
