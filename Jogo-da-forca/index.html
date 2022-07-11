@@ -26,9 +26,6 @@
         }
 
 
-/*         .corpo{
-            display: none;
-        } */
 
         #cabeca{
             grid-area: head;
@@ -121,6 +118,25 @@
         button:hover{
             background-color: rgb(53, 53, 53);
         }
+
+        #f_acerto, #f_errou{
+            display: none;
+            float: left;
+            border: 2px solid white;
+            border-radius: 5px;
+            width: 300px;
+            text-align: center;
+            background-color: black;
+            color: white;
+            outline: 2px solid black;
+            margin: 5px 0px 5px 20px;
+        }
+
+        #f_acerto > button, #f_errou > button {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        
     </style>
     <script>
         var temas = ["Animal", "Chapéu", "Filme"];
@@ -150,6 +166,10 @@
         var teclas;
         var confirma;
         var v_cor;
+        var acerto_caixa;
+        var acerto_texto;
+        var erro_caixa;
+        var erro_texto;
 
 
         window.addEventListener("load", gerar);
@@ -181,6 +201,13 @@
 
             acerto = 0;
             erro = 0;
+
+            acerto_caixa = document.getElementById("f_acerto");
+            acerto_texto = document.getElementById("t_acerto");
+
+            erro_caixa = document.getElementById
+            ("f_errou");
+            erro_texto = document.getElementById("t_errou");
         }
         
         function sortear(){
@@ -240,20 +267,19 @@
             }
 
             if(acerto >= tamanho_palavra){
-                confirma = confirm(`Parabéns, você acertou o ${temas[tema_aleatorio]}! \n Gostaria de jogar novamente?`)
-                if(confirma == true){
-                    document.location.reload(true);
-                }
+                confirma = true;
+
+                fimEscolha();
 
             } else if(erro >= 6){
-                confirma = confirm(`Desculpe, você errou, o ${temas[tema_aleatorio]} era ${topicos[tema_aleatorio][palavra_aleatoria]}. \n Gostaria de jogar novamente?`)
-                if(confirma == true){
-                    document.location.reload(true);
-                }
+
+                confirma = false;
+                fimEscolha()
             }
-            
+
             verificarTecla(validar_letra);
             v_cor="";
+
         }
 
 
@@ -273,6 +299,27 @@
             
         }
 
+        function fimEscolha(){
+            if(confirma === true){
+                acerto_caixa.style.display = "block";
+                acerto_texto.textContent = `Parabéns, você acertou o ${temas[tema_aleatorio]}, ${topicos[tema_aleatorio][palavra_aleatoria]} estava bem fácil não é? Gostaria de jogar novamente?`
+            } else if (confirma === false) {
+                erro_caixa.style.display = "block";
+                erro_texto.textContent = `Que pena, você errou o ${temas[tema_aleatorio]}. Gostaria de jogar novamente?`
+            }
+
+
+
+        }
+
+        function jogarSim(){
+            document.location.reload(true)
+        }
+
+        function jogarNao(){
+            acerto_caixa.style.display = "none";
+            erro_caixa.style.display = "none";
+        }
     </script>
 </head>
 <body>
@@ -315,6 +362,19 @@
                 <div class="corpo" id="braco_d"></div>
                 <div class="corpo" id="perna_e"></div>
                 <div class="corpo" id="perna_d"></div>
+            </div>
+        </section>
+
+        <section>
+            <div id="f_acerto">
+                <p id="t_acerto">Parabéns, você acertou o [tema], [palavra] estava bem fácil!<br> Gostaria de jogar novamente?</p>
+                <button onclick="jogarSim();">Sim</button>
+                <button onclick="jogarNao();">Não</button>
+            </div>
+            <div id="f_errou">
+                <p id="t_errou">Que pena, você errou o [tema] era [palavra]. <br> Gostaria de jogar novamente?</p>
+                <button onclick="jogarSim();">Sim</button>
+                <button onclick="jogarNao();">Não</button>
             </div>
         </section>
         <section>
