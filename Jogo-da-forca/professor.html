@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #dvForca{
+        margin-left: 10px;
+        display: grid;
+        column-gap: 0px;
+        row-gap: 0px;
+        grid-template-columns: auto auto auto;
+        grid-template-areas: 
+            ". head ."
+            "left_arm chest right_arm "
+            "left_leg . right_leg"
+        ;
+        width: 50px;
+        height: 200px;
+        }
+        
+        #cabeca{
+            grid-area: head;
+            background-color: black;
+            width: 40px;
+            height: 40px;
+            border: 1px solid black;
+            border-radius: 100%;
+
+        }
+        
+        #peito{
+            grid-area: chest;
+            background-color: black;
+            width: 5px;
+            height: 70px;
+            border: 1px solid black;
+            margin-left: 18px;
+        }
+
+        #braco_e{
+            transform: rotate(30deg);
+            grid-area: left_arm;
+            background-color: black;
+            height: 30px;
+            width: 5px;
+        }
+
+        #braco_d{
+            transform: rotate(-30deg);
+            grid-area: right_arm;
+            background-color: black;
+            height: 30px;
+            width: 5px;
+        }
+
+        #perna_e{
+            transform: rotate(30deg);
+            grid-area: left_leg;
+            background-color: black;
+            height: 50px;
+            width: 5px;
+        }
+
+        #perna_d{
+            transform: rotate(-30deg);
+            grid-area: right_leg;
+            background-color: black;
+            height: 50px;
+            width: 5px;
+        }
+
+        .letra{
+            width: 30px;
+            font-size: 30px;
+            text-transform: uppercase;
+            text-align: center;
+            margin: 5px;
+            display: none;
+        }
+
+        .letraJ{
+            width: 30px;
+            font-size: 30px;
+            text-transform: uppercase;
+            text-align: center;
+            margin: 5px;
+        }
+
+        #dvdisplay{
+            display: block;
+        }
+
+        #dvForca{
+            position: absolute;
+            left: 150px;
+        }
+ 
+    </style>
+    <script>
+        var biblioteca = ["javascript", "curso", "computador", "transporte", "livraria", "tecnologia", "controle", "churrasco", "brasil", "impressora", "xicara", "telefone", "internet", "camera", "monitor", "brinquedo", "youtube", "portaria", "escola", "carnaval", "teclado", "guitarra", "bateria", "chinelo", "helicoptero", "arduino"];
+        var quantidade = biblioteca.length-1;
+        var pos = Math.round(Math.random()*quantidade);
+        var palavra=biblioteca[pos];
+        var tam = palavra.length;
+        var caixaLetras=[];
+        var acertos;
+        var errosMax=6;
+        var erros = 0;
+        var desenhos;
+        var acertou = false;
+        var jogando = false;
+
+        window.addEventListener("load", inicia)
+
+        function defineLetras(l){
+            var obj;
+            for(var c = 0; c < 20; c++){
+                obj = document.getElementById(`letra${c}`).value="";
+                obj = document.getElementById(`letra${c}`).style.display = "none";
+            }
+            for(var c = 0; c < l; c++){
+                obj = document.getElementById(`letra${c}`).style.display="inline-block";
+            }
+        }
+
+        function jogar(){
+            jog = document.getElementById("letraJ");
+            jog.focus();
+            if(jog.value === ""){
+                alert("Digite uma letra");
+            } else {
+                if(jogando){
+                    var jog;
+                    var obj;
+                    var letraTmp;
+                    var letra;
+                    var pesq;
+                    letra = jog.value;
+                    jog.value = "";
+                    acertou = false;
+                    pesq = palavra.match(letra);
+                    while(pesq!=null){
+                        letraTmp = palavra.search(letra);
+                        obj = document.getElementById(`letra${letraTmp}`).value=letra;
+                        palavra = palavra.replace(letra, "0");
+                        acertos++;
+                        pesq = palavra.match(letra);
+                        acertou = true;
+                    }
+                    if(!acertou){
+                        document.getElementById("dvletrasddigitadas").innerHTML+=letra.toUpperCase()
+                        erros++;
+                        if(erros < 6){
+                            desenhos[erros].style.display="block";
+                        } else{
+                            document.getElementById("dvmsg").innerHTML = "Perdeu"
+                        }
+                    }
+                    if(acertos == tam){
+                        document.getElementById("dvmsg").innerHTML = "";
+                        document.getElementById("dvmsg").innerHTML = "Ganhou";
+                        jogando = false;
+                    }
+                }
+            }
+        }
+
+        function inicia(){
+            jogando = true;
+            jog = document.getElementById("letraJ");
+            jog.value = "";
+            jog.focus();
+            acertos = 0;
+            erros = 0;
+            acertou = false;
+            document.getElementById("dvletrasdigitadas")
+            pos = Math.round(Math.random()*quantidade);
+            palavra = biblioteca[pos];
+            tam = palavra.length;
+            defineLetras(tam);
+            document.getElementById("dvmsg").innerHTML="";
+            desenhos = document.getElementsByClassName("corpo");
+            for(var c = 0; c < 6; c++){
+                desenhos[c].style.display="none";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="dvmenu" class="dvdisplay">
+        <button onclick="inicia()">Nova Palavra</button>
+    </div>
+    <div id="dvpalavra" class="dvdisplay">
+        <input type="text" id="letra0" class="letra" maxlength="1">
+        <input type="text" id="letra1" class="letra" maxlength="1">
+        <input type="text" id="letra2" class="letra" maxlength="1">
+        <input type="text" id="letra3" class="letra" maxlength="1">
+        <input type="text" id="letra4" class="letra" maxlength="1">
+        <input type="text" id="letra5" class="letra" maxlength="1">
+        <input type="text" id="letra6" class="letra" maxlength="1">
+        <input type="text" id="letra7" class="letra" maxlength="1">
+        <input type="text" id="letra8" class="letra" maxlength="1">
+        <input type="text" id="letra9" class="letra" maxlength="1">
+        <input type="text" id="letra10" class="letra" maxlength="1">
+        <input type="text" id="letra11" class="letra" maxlength="1">
+        <input type="text" id="letra12" class="letra" maxlength="1">
+        <input type="text" id="letra13" class="letra" maxlength="1">
+        <input type="text" id="letra14" class="letra" maxlength="1">
+        <input type="text" id="letra15" class="letra" maxlength="1">
+        <input type="text" id="letra16" class="letra" maxlength="1">
+        <input type="text" id="letra17" class="letra" maxlength="1">
+        <input type="text" id="letra18" class="letra" maxlength="1">
+        <input type="text" id="letra19" class="letra" maxlength="1">
+        </div>
+
+        <div id="dvjogador" class="dvdisplay">
+            <div id="controlesJogador">
+                <input type="text" id="letraJ" class="letraJ" maxlength="1">
+                <button onclick="jogar()">Jogar</button>
+                <button onclick="dica()">Dicas</button>
+                <p id="dvmsg"></p> <br>
+                <p id="dvletrasddigitadas">Letras Digitadas:</p>
+            </div>
+            <div id="dvForca">
+                <div id="cabeca" class="corpo"></div>
+                <div id="braco_e" class="corpo"></div>
+                <div id="peito" class="corpo"></div>
+                <div id="braco_d" class="corpo"></div>
+                <div id="perna_e" class="corpo"></div>
+                <div id="perna_d" class="corpo"></div>
+            </div>
+        </div>
+</body>
+</html>
