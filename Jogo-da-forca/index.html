@@ -268,11 +268,8 @@
 
             if(acerto >= tamanho_palavra){
                 confirma = true;
-
                 fimEscolha();
-
             } else if(erro >= 6){
-
                 confirma = false;
                 fimEscolha()
             }
@@ -306,6 +303,9 @@
             } else if (confirma === false) {
                 erro_caixa.style.display = "block";
                 erro_texto.textContent = `Que pena, você errou o ${temas[tema_aleatorio]}, era ${topicos[tema_aleatorio][palavra_aleatoria]}. Gostaria de jogar novamente?`
+                for(var c = 0; teclas.length > c; c++){
+                    teclas[c].disabled = true;
+                }
             }
 
 

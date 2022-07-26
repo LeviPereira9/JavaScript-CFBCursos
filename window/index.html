@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Window</title>
+    <script>
+        var minhaJanela;
+
+        function abreJ(){
+            var minhaJanela = window.open("teste.html", "_blank","width=300,height=300,top=300,left=300");
+        }
+
+        function fechaJ(){
+            //Essa função .close(), foi desabilitada por questões de segurança.
+            minhaJanela.close();
+        }
+
+    </script>
+</head>
+<body>
+    
+    <button id="abrir" onclick="abreJ()">Abrir nova janela</button>
+
+    <button id="fechar" onclick="fechaJ()">Fechar nova janela</button>
+
+<!--     <iframe src="" name="cfb" frameborder="1"></iframe> -->
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History</title>
+    <script>
+        var painel, btnB, btnF;
+        
+        window.addEventListener("load", iniciar);
+
+        function iniciar(){
+            btnB = document.getElementById("btnBack");
+            btnB.addEventListener("click", voltar);
+            btnF = document.getElementById("btnForward");
+            btnF.addEventListener("click", avancar);
+            painel = document.getElementById("info");
+            painel.innerHTML = `Historico: ${history.length}`
+        }
+
+        function voltar(){
+            window.history.back();
+        }
+
+        function avancar(){
+            window.history.forward();
+        }
+
+        function hg(n){
+            window.history.go(n);
+        }
+    </script>
+</head>
+<body>
+    <h1>Index - History</h1>
+    <p id="info"></p>
+
+    <a href="index.html">Home</a>
+    <a href="p2.html">Página 2</a>
+    <a href="p3.html">Página 3</a>
+    <hr>
+    <button id="btnBack">Voltar</button>
+    <button id="btnForward">Avançar</button>
+    <button onclick="hg(-2)">Voltar 2</button>
+</body>
+</html> 

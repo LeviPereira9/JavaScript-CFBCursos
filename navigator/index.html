@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigator</title>
+    <style>
+        #painel{
+            width: 400px;
+            height: 500px;
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 10px;
+        }
+    </style>
+    <script>
+        var painel;
+
+        window.addEventListener("load", iniciar);
+        
+        function iniciar(){
+            painel = document.getElementById("painel");
+            painel.innerHTML=`
+            <h1>Informações do Navegador</h1>
+            <strong>Nome do Browser:</strong> ${navigator.appName} <hr>
+            <strong>Versão do Browser:</strong> ${navigator.appVersion} <hr>
+            <strong>Cookies:</strong> ${navigator.cookieEnabled} <hr> 
+            <strong> Idioma:</strong> ${navigator.language} <hr>
+            <strong>Online:</strong> ${navigator.onLine} <hr>
+            <strong>Sistema Operacional:</strong> ${navigator.platform}<hr>
+            <strong>Engine:</strong>${navigator.product}<hr>
+            <strong>UserAgent:</strong>${navigator.userAgent}<hr>`;
+            navigator.geolocation.getCurrentPosition(localizar)
+        }
+
+        function localizar(posicao){
+            var coordenadas = posicao.coords;
+            painel.innerHTML+=`<strong> Localização:  </strong>Latitude: ${coordenadas.latitude}  - Longitude: ${coordenadas.longitude} <hr>`;
+        }
+    </script>
+</head>
+<body>
+    <div id="painel"></div>
+</body>
+</html>

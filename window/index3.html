@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Window</title>
+    <style>
+        #painel{
+            margin: 10px;
+            border: 1px solid black;
+            border-radius: 10px;
+            padding: 15px;
+            width: 140px;
+            height: 30px;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", inicia);
+        var quantidade;
+        var painel;
+        function inicia(){
+            quantidade = window.length;
+            painel = document.getElementById("painel");
+            painel.innerHTML = quantidade;
+
+/*             for(var c = 0; quantidade >= c; c++){
+                window.frames[c].location = "https://cfbcursos.com.br"
+            } */
+        }
+        
+    </script>
+</head>
+<body>
+
+    <iframe src="index4.html" frameborder="1"></iframe>
+    <iframe src="" frameborder="1"></iframe>
+    <iframe src="" frameborder="1"></iframe>
+
+    <div id="painel"></div>
+</body>
+</html>

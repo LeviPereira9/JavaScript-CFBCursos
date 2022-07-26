@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo do ping-pong, com o professor</title>
+    <style>
+        body{
+            margin: 0px;
+            background-color: gray;
+        }
+
+        #dvPainel{
+            display: flex;
+            height: 50px;
+            align-items: center;
+        }
+
+        .itemPainel{
+            margin: 5px;
+        }
+
+        #dvJogo{
+            width: 960px;
+            height: 500px;
+            border: 1px solid black;
+            background-color: black;
+        }
+
+        #dvBola{
+            position: absolute;
+            top: 240px;
+            left: 475px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 100%;
+        }
+
+        .barra{
+            position: absolute;
+            width: 20px;
+            height: 140px;
+            background-color: white;
+            top: 180px;
+        }
+
+        .esquerda{
+            left: 10px;
+        }
+
+        .direita{
+            left: 930px;
+        }
+    </style>
+    <script>
+        //Elementos
+        var botaoIniciar;
+        var bola;
+        var cpu;
+        var jogador;
+        var textoPontos;
+
+        //controle de animação
+
+        var game, frames;
+        
+
+        //Posições
+        var posicaoBolaX,posicaoBolaY;
+        var posicaoJogadorX, posicaoJogadorY;
+        var posicaoCpuX, posicaoCpuY;
+
+        //Direções - Teclado
+        var direcaoJogadorY;
+
+        //Posições Iniciais
+        var inicialJogadorY = 180;
+        var inicialJogadorX = 0;
+        var inicialCpuY = 180;
+        var inicialCpuX = 930;
+        var inicialBolaX = 475;
+        var inicialBolaY = 240;
+
+        //Tamanhos
+        var campoW=960, campoH=500;
+        var barraW=20,barraH=140;
+        var bolaW=20, bolaH=20;
+
+        //Direção
+        var bolaX, bolaY;
+
+        //velocidade
+        var velocidadeBola, velocidadeCpu, velocidadeJogador;
+
+        //Controle
+        var pontos=0;
+        var tecla;
+        var jogo = false;
+
+        window.addEventListener("load", inicializar);
+
+        function inicializar(){
+            botaoIniciar = document.getElementById("btIniciar");
+            botaoIniciar.addEventListener("click", iniciaJogo);
+            jogador = document.getElementById("dvJogador");
+            cpu = document.getElementById("dvCpu");
+            bola = document.getElementById("dvBola");
+            textoPontos = document.getElementById("txPontos");
+            document.addEventListener("keydown", teclaDw);
+            document.addEventListener("keyup", teclaUp);
+        }
+
+        function iniciaJogo(){
+            if(!jogo){
+                cancelAnimationFrame(frames);
+                jogo = true;
+                direcaoJogadorY = 0;
+                bolaY = 0;
+                if((Math.random()*10) <= 5){
+                    bolaX = -1;
+                } else {
+                    bolaX = 1;
+                }
+                posicaoBolaX = inicialBolaX;
+                posicaoBolaY = inicialBolaY;
+                posicaoJogadorY = inicialJogadorY;
+                posicaoJogadorX = inicialJogadorX;
+                posicaoCpuY = inicialCpuY;
+                posicaoCpuX = inicialCpuX;
+                velocidadeBola = 5;
+                velocidadeCpu = 10;
+                velocidadeJogador = 25;
+                game();
+            }
+            
+        }
+
+        function game(){
+            if(jogo){
+                controlaJogador();
+                controlaCpu();
+                controlaBola();
+            }
+            frames = requestAnimationFrame(game);
+        }
+
+        function teclaDw(){
+            tecla = event.key;
+            if(tecla=="ArrowUp"){
+                direcaoJogadorY-=1;
+            } else if(tecla=="ArrowDown"){
+                direcaoJogadorY+=1;
+            }
+        }
+
+        function teclaUp(){
+            if(tecla=="ArrowUp"){
+                direcaoJogadorY=0;
+            } else if(tecla=="ArrowDown"){
+                direcaoJogadorY=0;
+            }
+        }
+
+        function controlaJogador(){
+            if(jogo){
+                posicaoJogadorY += velocidadeJogador*direcaoJogadorY;
+                if(posicaoJogadorY+barraH-4.5 >= campoH || posicaoJogadorY-4.5 <= 0){
+                   posicaoJogadorY += (velocidadeJogador*direcaoJogadorY)*(-1); 
+                }
+                jogador.style.top = posicaoJogadorY + "px";
+            }
+        }
+
+        function controlaCpu(){
+            if(jogo){
+                if(posicaoBolaX > (campoW/2) && bolaX > 0){
+                    //movimentar CPU
+                    if(((posicaoBolaY+(bolaH/2)) >(posicaoCpuY+(barraH/2)+velocidadeCpu))){
+                        //Mover para baixo
+                        if(((posicaoCpuY+barraH) <= campoH)){
+                            posicaoCpuY+=velocidadeCpu;
+                        }
+                    } else if((posicaoBolaY < (posicaoCpuY+(barraH/2)+velocidadeCpu))){
+                        //Mover para cima
+                        if(((posicaoCpuY) >= 0)){
+                            posicaoCpuY-=velocidadeCpu;
+                        }
+                    } 
+                } else {
+                    //Posicionar CPU no centro
+                    if(posicaoCpuY+(barraH/2) < (campoH/2) ){
+                        posicaoCpuY+=velocidadeCpu;
+                    } else if(posicaoCpuY+(barraH/2) > (campoH/2) ){
+                        posicaoCpuY-=velocidadeCpu;
+                    }
+                }
+                cpu.style.top = posicaoCpuY+"px";
+            }
+        }
+
+        function controlaBola(){
+            //Movimentação bola
+            posicaoBolaX+= velocidadeBola * bolaX
+            posicaoBolaY+= velocidadeBola * bolaY
+
+
+            //Colisao com jogador
+            if((posicaoBolaX <= posicaoJogadorX+barraW) && ((posicaoBolaY+bolaH) >= posicaoJogadorY) &&(posicaoBolaY <= (posicaoJogadorY+barraH))){
+
+                bolaY=(((posicaoBolaY+(bolaH/2))-(posicaoJogadorY+(barraH/2)))/8)
+                bolaX*=-1;
+            }
+
+            //Colisao com CPU
+            if((posicaoBolaX >= posicaoCpuX - barraW)&&((posicaoBolaY + bolaH >= posicaoCpuY)&&(posicaoBolaY <= posicaoCpuY + barraH))){
+                bolaY = (((posicaoBolaY+(bolaH/2)-(posicaoCpuY+barraH/2)))/8);
+                bolaX*=-1;
+            }
+
+            //Colisao de limites Cima e Baixo
+
+            if((posicaoBolaY >= 480) || posicaoBolaY <= 0){
+                bolaY*=-1;
+            }
+
+            //Saiu da tela.
+
+            if(posicaoBolaX >= (campoW - bolaW)){
+                velocidadeBola=0;
+                posicaoBolaX=inicialBolaX;
+                posicaoBolaY=inicialBolaY;
+                posicaoJogadorY=inicialJogadorY;
+                posicaoJogadorX=inicialBolaX;
+                posicaoCpuX=inicialCpuX;
+                posicaoCpuY=inicialCpuY;
+                pontos++;
+                textoPontos.value=pontos;
+                jogo=false;
+            } else if(posicaoBolaX <= 0){
+                velocidadeBola=0;
+                posicaoBolaX=inicialBolaX;
+                posicaoBolaY=inicialBolaY;
+                posicaoJogadorY=inicialJogadorY;
+                posicaoJogadorX=inicialBolaX;
+                posicaoCpuX=inicialCpuX;
+                posicaoCpuY=inicialCpuY;
+                pontos--;
+                textoPontos.value=pontos;
+                jogo=false;
+            }
+
+            bola.style.left=posicaoBolaX+ "px";
+            bola.style.top=posicaoBolaY+ "px";
+        }
+    </script>
+</head>
+<body>
+    <div id="dvJogo">
+        <div id="dvBola"></div>
+        <div id="dvJogador" class="barra esquerda"></div>
+        <div id="dvCpu" class="barra direita"></div>
+    </div>
+    <div id="dvPainel">
+        <div class="itemPainel">
+            <label for="txPontos">Pontos</label>
+            <input type="text" id="txPontos" value="0" size="10">
+        </div>
+        <div class="itemPainel">
+            <button id="btIniciar">Iniciar</button>
+        </div>
+    </div>
+</body>
+</html>

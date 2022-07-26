@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da velha</title>
+    <style>
+
+        #dvjogo{
+            display: flex;
+            width: 160px;
+            height: 160px;
+            flex-wrap: wrap;
+            align-content: center;
+            justify-content: center;
+        }
+
+        .caixa{
+            display: flex;
+            width: 50px;
+            height: 50px;
+            margin: 0px;
+            padding: 0px;
+            cursor: pointer;
+        }
+
+        button.caixa{
+            border: 0px;
+            background-color: transparent;
+        }
+
+        button.caixa:disabled{
+            color: black;
+            font-size: 1.2em;
+        }
+
+        #p1{
+            border-right: 2px solid black;
+            border-bottom: 2px solid black;
+        }
+
+        #p2{
+            border-right: 2px solid black;
+            border-bottom: 2px solid black;
+        }
+
+        #p3{
+            border-bottom: 2px solid black;
+        }
+
+        #p4{
+            border-right: 2px solid black;
+            border-bottom: 2px solid black;
+        }
+
+        #p5{
+            border-right: 2px solid black;
+            border-bottom: 2px solid black;
+        }
+
+        #p6{
+            border-bottom: 2px solid black;
+        }
+
+        #p7{
+            border-right: 2px solid black;
+        }
+
+        #p8{
+            border-right: 2px solid black;;
+        }
+    </style>
+    <script>
+        var caixa;
+        var condicao;
+        var aleatorio;
+        var casadavelha = [0, 0, 0, 0, 0, 0, 0, 0];
+        var jogadasMaquina;
+        var teste4;
+        var teste5;
+        var nivel;
+
+
+        window.addEventListener("load", iniciar);
+
+        function iniciar(){
+            caixa = document.getElementsByClassName("caixa");
+            condicao = 0;
+            jogadasMaquina = 0;
+            teste4 = 0;
+            teste5 = 0;
+            nivel = 0;
+        }
+
+        
+        function posicionar(valor, posicao){
+            caixa[posicao].textContent = "X";
+            desativarBotao(posicao);
+
+            calcularVitoria(valor, posicao);
+            
+            if(nivel == 0){
+                JogadaAleatoria();
+                maquina();
+            } 
+
+            if(nivel == 1){
+                JogadaAleatoria();
+                maquinaMedia();
+            }
+            
+
+        }
+
+        function calcularVitoria(valor, posicao){
+            casadavelha[posicao] = valor;
+
+            //Condição de vitoria 1
+            if(casadavelha[0] == casadavelha[1] && casadavelha[1] == casadavelha[2] ){
+            
+                teste4+=casadavelha[0];
+                teste4+=casadavelha[1];
+                teste4+=casadavelha[2];
+            
+                if(teste4 == 3){
+                    console.log(`Parabéns, X venceu!`)
+                    teste4 = 0
+                    console.log("Vitoria na horizantal superior");
+                    teste5 = 1;
+                    for(var c = 0; c < 9; c++){
+                        acabou(c);
+                    }
+                    return;
+                } else if(teste4 == 6) {
+                    console.log(`Parabéns, O venceu!`)
+                    teste4 = 0;
+                    for(var c = 0; c < 9; c++){
+                        acabou(c);
+                    }
+                    return;
+                }
+            }
+            //Condição de vitoria 2
+            if(casadavelha[3] == casadavelha[4] && casadavelha[4] == casadavelha[5] ){
+            
+                teste4+=casadavelha[3];
+                teste4+=casadavelha[4];
+                teste4+=casadavelha[5];
+            
+                if(teste4 == 3){
+                    console.log(`Parabéns, X venceu!`)
+                    teste4 = 0
+                    console.log("Vitoria na horizontal do meio");
+                    teste5 = 1;
+                    for(var c = 0; c < 9; c++){
+                        acabou(c);
+                    }
+                    return;
+                } else if(teste4 == 6) {
+                    console.log(`Parabéns, O venceu!`)
+                    teste4 = 0;
+                    for(var c = 0; c < 9; c++){
+                        acabou(c);
+                    }
+                    return;
+                }
+            }
+            //Condição de vitoria 3
+            if(casadavelha[6] == casadavelha[7] && casadavelha[7] == casadavelha[8] ){
+            
+                teste4+=casadavelha[6];
+                teste4+=casadavelha[7];
+                teste4+=casadavelha[8];
+            
+                if(teste4 == 3){
+                    console.log(`Parabéns, X venceu!`)
+                    teste4 = 0
+                    console.log("Vitoria na horizontal de baixo");
+                    teste5 = 1;
+                    for(var c = 0; c < 9; c++){
+                        acabou(c);
+                    }
+                    return;
+                } else if(teste4 == 6) {
+                    console.log(`Parabéns, O venceu!`)
+                    teste4 = 0;
+                    for(var c = 0; c < 9; c++){
+                        acabou(c);
+                    }
+                    return;
+                }
+            }
+            //Condição de vitoria 4
+            if(casadavelha[0] == casadavelha[3] && casadavelha[3] == casadavelha[6] ){
+            
+                teste4+=casadavelha[0];
+                teste4+=casadavelha[3];
+                teste4+=casadavelha[6];
+            
+                if(teste4 == 3){
+                    console.log(`Parabéns, X venceu!`)
+                    teste4 = 0
+                    console.log("Vitoria na vertical esquerda");
+                    teste5 = 1;
+                    for(var c = 0; c < 9; c++){
+                        acabou(c);
+                    }
+                    return;
+                } else if(teste4 == 6) {
+                    console.log(`Parabéns, O venceu!`)
+                    teste4 = 0;
+                    for(var c = 0; c < 9; c++){
+                        acabou(c);
+                    }
+                    return;
+                }
+            }
+            //Condição de vitoria 5
+            if(casadavelha[1] == casadavelha[4] && casadavelha[4] == casadavelha[7] ){
+            
+                teste4+=casadavelha[1];
+                teste4+=casadavelha[4];
+                teste4+=casadavelha[7];
+            
+                if(teste4 == 3){
+                    console.log(`Parabéns, X venceu!`)
+                    teste4 = 0
+                    console.log("Vitoria na vertical center");
+                    teste5 = 1;
+                    for(var c = 0; c < 9; c++){
+                        acabou(c);
+                    }
+                    return;
+                } else if(teste4 == 6) {
+                    console.log(`Parabéns, O venceu!`)
+                    teste4 = 0;
+                    for(var c = 0; c < 9; c++){
+                        acabou(c);
+                    }
+                    return;
+                }
+            }
+            //Condição de vitoria 6
+            if(casadavelha[2] == casadavelha[5] && casadavelha[5] == casadavelha[8] ){
+            
+                teste4+=casadavelha[2];
+                teste4+=casadavelha[5];
+                teste4+=casadavelha[8];
+            
+                if(teste4 == 3){
+                    console.log(`Parabéns, X venceu!`)
+                    teste4 = 0
+                    console.log("Vitoria na vertical direita");
+                    teste5 = 1;
+                    for(var c = 0; c < 9; c++){
+                        acabou(c);
+                    }
+                    return;
+                } else if(teste4 == 6) {
+                    console.log(`Parabéns, O venceu!`)
+                    teste4 = 0;
+                    for(var c = 0; c < 9; c++){
+                        acabou(c);
+                    }
+                    return;
+                }
+            }
+            //Condição de vitoria 7
+            if(casadavelha[0] == casadavelha[4] && casadavelha[4] == casadavelha[8] ){
+            
+                teste4+=casadavelha[0];
+                teste4+=casadavelha[4];
+                teste4+=casadavelha[8];
+            
+                if(teste4 == 3){
+                    console.log(`Parabéns, X venceu!`)
+                    teste4 = 0
+                    console.log("Vitoria na diagonal da barra invertida");
+                    teste5 = 1;
+                    for(var c = 0; c < 9; c++){
+                        acabou(c);
+                    }
+                    return;
+                } else if(teste4 == 6) {
+                    console.log(`Parabéns, O venceu!`)
+                    teste4 = 0;
+                    for(var c = 0; c < 9; c++){
+                        acabou(c);
+                    }
+                    return;
+                }
+            }
+            //Condição de vitoria 8
+            if(casadavelha[2] == casadavelha[4] && casadavelha[4] == casadavelha[6] ){
+            
+                teste4+=casadavelha[2];
+                teste4+=casadavelha[4];
+                teste4+=casadavelha[6];
+            
+                if(teste4 == 3){
+                    console.log(`Parabéns, X venceu!`)
+                    teste4=0;
+                    console.log("Vitoria na barra normal /")
+                    teste5 = 1;
+                    for(var c = 0; c < 9; c++){
+                        acabou(c);
+                    }
+                    return;
+                } else if(teste4 == 6) {
+                    console.log(`Parabéns, O venceu!`)
+                    teste4 = 0;
+                    for(var c = 0; c < 9; c++){
+                        acabou(c);
+                    }
+                    return;
+                }
+            }
+
+        }
+
+        function maquina(){
+           if(casadavelha[aleatorio] != 0){
+                if(jogadasMaquina < 4){
+                JogadaAleatoria();
+                maquina();
+                jogadasMaquina++;
+                } else {
+                    return;
+                } 
+                
+            } else{
+                caixa[aleatorio].textContent = "O";
+                desativarBotao(aleatorio);
+
+                if(teste5 == 0){
+                    calcularVitoria(2, aleatorio);
+                }
+                
+                console.log(casadavelha)
+            }
+        
+            
+
+        }
+
+        function JogadaAleatoria(){
+            aleatorio = Math.round(Math.random()*8);
+            chance = Math.round(Math.random()*100);
+        }
+
+        function maquinaMedia(){
+            if(chance <= 50){
+                caixa[aleatorio].textContent = "O";
+                desativarBotao(aleatorio);
+            } else {
+                if(true){
+                    return false;
+                }
+            }
+        }
+
+        function desativarBotao(posicao){
+            caixa[posicao].disabled = true;
+        }
+
+        function acabou(posicao){
+            caixa[posicao].disabled = true;
+        }
+    </script>
+</head>
+<body>
+
+    <div id="dvmenu">
+        <div id="dvxis">O</div>
+        <div id="dvbolinha">X</div>
+        <p id="msgVez">Vez do [formato]</p>
+        <button onclick="">Iniciar jogo</button>
+    </div>
+    <div id="dvjogo">
+        <button id="p1" class="caixa" onclick="posicionar(1, 0)"></button>
+        <button id="p2" class="caixa" onclick="posicionar(1, 1)"></button>
+        <button id="p3" class="caixa" onclick="posicionar(1, 2)"></button>
+        <button id="p4" class="caixa" onclick="posicionar(1, 3)"></button>
+        <button id="p5" class="caixa" onclick="posicionar(1, 4)"></button>
+        <button id="p6" class="caixa" onclick="posicionar(1, 5)"></button>
+        <button id="p7" class="caixa" onclick="posicionar(1, 6)"></button>
+        <button id="p8" class="caixa" onclick="posicionar(1, 7)"></button>
+        <button id="p9" class="caixa" onclick="posicionar(1, 8)"></button>
+    </div>
+
+</body>
+</html>
