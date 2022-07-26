@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local storage</title>
+    <style>
+        #dados{
+            display: none;
+            position: absolute;
+            top: 100px;
+            left: 10px;
+            border: 1px solid black;
+            background-color: lightgray;
+            border-radius: 10px;
+            padding: 10px;
+        }
+    </style>
+    <script>
+
+        var corfundo, cortexto, corNome, formulario;
+        
+        window.addEventListener("load", iniciar);
+
+
+        function iniciar(){
+            if(localStorage.corFundo){
+            var vcorfundo = localStorage.corFundo;
+            var vcortexto = localStorage.corTexto;
+            var vcornome = localStorage.getItem("corNome");
+            defineCor(1,vcorfundo);
+            defineCor(0,vcortexto);
+            document.getElementById("painel").innerHTML = (`Bem vindo, ${vcornome}`)
+        }
+
+        }
+        
+        function revelar(){
+            formulario = document.getElementById("dados");
+            formulario.style.display = "block";
+        }
+        
+        function defineCor(operacao, cor){
+            if(operacao == 1){
+                document.body.style.backgroundColor = cor;
+                corfundo = cor;
+            } else {
+                document.body.style.color = cor;
+                cortexto = cor;
+            }
+        }
+
+        function gravar(){
+            cornome = document.getElementById("fnome").value;
+            localStorage.setItem("corFundo", corfundo);
+            localStorage.setItem("corTexto", cortexto);
+            localStorage.setItem("corNome", cornome);
+            formulario.style.display = "none";
+        }
+    </script>
+</head>
+<body>
+    <p>LocalStorage - Curso de JavaScript</p>
+
+    <p id="painel"></p>
+
+    <button onclick="revelar()">Configurações</button>
+    <form action="get" name="dados" id="dados">
+        <label for="fnome">Nome:</label>
+        <input type="text" name="fnome" id="fnome" size="20"><br>
+        <label>Cor fundo:</label> <br>
+        <input type="radio" name="fcorF" onclick="defineCor(1,'black')">Preto<br>
+        <input type="radio" name="fcorF" onclick="defineCor(1,'white')">Branco<br>
+        <input type="radio" name="fcorF" onclick="defineCor(1,'red')">Vermelho <br>
+        <input type="radio" name="fcorF" onclick="defineCor(1,'green')">Verde <br>
+        <input type="radio" name="fcorF" onclick="defineCor(1,'blue')">Azul <br>
+        <label >Cor texto:</label> <br>
+        <input type="radio" name="fcorT" onclick="defineCor(0, 'black')">Preto <br>
+        <input type="radio" name="fcorT" onclick="defineCor(0,'white')">Branco <br>
+        <input type="button" value="Gravar" onclick="gravar()">
+    </form>
+</body>
+</html>

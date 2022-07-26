@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local storage</title>
+    <style>
+
+    </style>
+    <script>
+
+        var corfundo, cortexto, corNome;
+
+        function defineCor(operacao, cor){
+            if(operacao == 1){
+                document.body.style.backgroundColor = cor;
+                corfundo = cor;
+            } else {
+                document.body.style.color = cor;
+                cortexto = cor;
+            }
+        }
+
+        function gravar(){
+            corNome = document.getElementById("fnome").value;
+            localStorage.setItem("corFundo", corfundo);
+            localStorage.setItem("corTexto", cortexto);
+            localStorage.setItem("corNome", corNome);
+        }
+    </script>
+</head>
+<body>
+    <form action="get" name="dados">
+        <label for="fnome">Nome:</label>
+        <input type="text" name="fnome" id="fnome" size="20"><br>
+        <label>Cor fundo:</label> <br>
+        <input type="radio" name="fcorF" onclick="defineCor(1,'black')">Preto<br>
+        <input type="radio" name="fcorF" onclick="defineCor(1,'white')">Branco<br>
+        <input type="radio" name="fcorF" onclick="defineCor(1,'red')">Vermelho <br>
+        <input type="radio" name="fcorF" onclick="defineCor(1,'green')">Verde <br>
+        <input type="radio" name="fcorF" onclick="defineCor(1,'blue')">Azul <br>
+        <label >Cor texto:</label> <br>
+        <input type="radio" name="fcorT" onclick="defineCor(0, 'black')">Preto <br>
+        <input type="radio" name="fcorT" onclick="defineCor(0,'white')">Branco <br>
+        <input type="button" value="Gravar" onclick="gravar()">
+    </form>
+</body>
+</html>
