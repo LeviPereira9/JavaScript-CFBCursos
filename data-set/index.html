@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dataSet</title>
+    <style>
+        #caixa{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            width: 250px;
+        }
+
+        .carro{
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            border: 1px solid black;
+        }
+
+        #painel{
+            border: 3px solid black;
+            border-radius: 10px;
+            padding: 10px;
+            width: 500px;
+            height: 100px;
+            margin-bottom: 20px;
+        }
+    </style>
+    <script>
+        var painel;
+
+        window.addEventListener("load", carregar);
+
+        function carregar(){
+            painel = document.getElementById("painel");
+            document.getElementById("c1").addEventListener("click", define);
+            document.getElementById("c2").addEventListener("click", define);
+            document.getElementById("c3").addEventListener("click", define);
+            document.getElementById("c4").addEventListener("click", define);
+        }
+
+        function define(){
+            var carroModelo = event.target.dataset.modelo;
+            var carroCor = event.target.dataset.cor;
+            var carroPotencia = event.target.dataset.potencia;
+            var carroVelocidade = event.target.dataset.velocidade;
+            
+            painel.innerHTML = "";
+            painel.innerHTML = `
+            <strong>Modelo:</strong> ${carroModelo} <br>
+            <strong>Cor:</strong> ${carroCor} <br>
+            <strong>Potencia:</strong> ${carroPotencia} cavalos <br>
+            <strong>Velocidade:</strong> ${carroVelocidade} km/h`;
+        
+        }
+        
+    </script>
+</head>
+<body>
+    <div id="painel"></div>
+    <div id="caixa">
+        <div id="c1" class="carro" data-modelo="Fora de linha" data-cor="Branco" data-potencia="80" data-velocidade="120"></div>
+        <div id="c2" class="carro" data-modelo="Esportivo" data-cor="Vermelho" data-potencia="350" data-velocidade="320"></div>
+        <div id="c3" class="carro" data-modelo="Familia" data-cor="Amarelo" data-potencia="110" data-velocidade="180"></div>
+        <div id="c4" class="carro" data-modelo="Popular" data-cor="Preto" data-potencia="220" data-velocidade="260"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ParentNode, remove, removeChild</title>
+    <script>
+        window.addEventListener("load", iniciar);
+
+        function iniciar(){
+            var elemento = document.getElementById("cfbCursos").childNodes;
+            document.getElementById("cfbCursos").removeChild(elemento[0])
+        }
+    </script>
+</head>
+<body>
+    <div id="cfbCursos">
+        <p id="p1">Curso de JavaScript</p>
+        <p id="p2">Curso de HTML/HTML5</p>
+        <p id="p3">Curso de CSS3</p>
+        <p id="p4">Curso de PHP/MySQL</p>
+        <p id="p5">Curso de C++</p>
+        <p id="p6">Curso de Photoshop</p>
+        <p id="p7">Curso de Flash</p>
+        <p id="p8">Curso de Unity</p>
+    </div>
+</body>
+</html>

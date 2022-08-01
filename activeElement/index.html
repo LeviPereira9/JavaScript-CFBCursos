@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Active Element</title>
+    <script>
+        var caixa;
+
+        
+        window.addEventListener("load", inicia);
+        
+        function inicia(){
+            var texto = document.getElementById("txt_original");
+            texto.addEventListener("mouseup", soltou);
+        }
+
+        function soltou(){
+            caixa = document.getElementById("texto_selecionado");
+            caixa.innerHTML = document.activeElement.value.substring(document.activeElement.selectionStart, document.activeElement.selectionEnd);
+        }
+
+        
+    </script>
+</head>
+<body>
+
+    <textarea rows="5" cols="20" id="txt_original">CFB Cursos - Curso de JavaScript - Aula 88 - Atributo activeElement</textarea>
+    <br><br>
+    <p>Texto selecionado: </p>
+    <span id="texto_selecionado"></span>
+</body>
+</html>

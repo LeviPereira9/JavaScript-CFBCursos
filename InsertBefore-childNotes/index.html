@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>insertBefore & childNotes</title>
+    <script>
+        window.addEventListener("load", iniciar);
+        window.addEventListener("keypress", confirmar);
+
+        
+
+        function iniciar(){
+            document.getElementById("btnAdd").addEventListener("click", adicionar);
+            document.getElementById("btnContar").addEventListener("click", function(){
+                var lista = document.getElementById("listaElementos");
+                var numeroElementos = lista.childNodes.length;
+                alert(`Número de elementos da lista: ${numeroElementos}`)
+            })
+        }
+
+        function adicionar(){
+                var lista = document.getElementById("listaElementos");
+                var texto = document.getElementById("fnovo");
+                var li = document.createElement("li");
+                li.textContent=texto.value;
+                lista.insertBefore(li, lista.childNodes[1]);
+                texto.value="";
+                texto.focus();
+            }
+
+        function confirmar(){
+            var tecla = event.key;
+
+            if(tecla=="Enter"){
+                adicionar();
+            }
+        }
+        
+    </script>
+</head>
+<body>
+    <input type="text" name="fnovo" id="fnovo">
+    <button id="btnAdd">Adicionar</button>
+    <button id="btnContar">Contar</button>
+    <br><br>
+    <ul id="listaElementos"></ul>
+</body>
+</html>

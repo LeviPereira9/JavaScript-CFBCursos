@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hasFocus</title>
+    <script>
+        var mensagem;
+        var simnao;
+
+        window.addEventListener("load", carregar);
+
+        function carregar(){
+            mensagem = document.getElementById("mensagem");
+            simnao = document.getElementById("simnao");
+            loop();
+        }
+
+        function loop(){
+            if(document.hasFocus()){
+                simnao.style.display = "none";
+                document.body.style.backgroundColor = "lightblue";
+            } else {
+                simnao.style.display = "inline";
+                document.body.style.backgroundColor = "lightcoral";
+            }
+
+            requestAnimationFrame(loop);
+        }
+
+    </script>
+</head>
+<body>
+    <div id="mensagem">Pagina <span id="simnao">não</span> está em foco</div>
+</body>
+</html>
