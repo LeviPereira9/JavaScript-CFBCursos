@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objeto Map</title>
+    <script>
+
+        let produtos = new Map([
+            ["01","Mouse"],
+            ["02","Teclado"],
+            ["03", "Monitor"],
+            ["04", "Gabinete"]
+        ]);
+        
+
+        produtos.set("05","Memória");
+
+
+       
+       function info(chave, valor){
+            console.log(`Chave: ${chave}, Valor: ${valor}`);
+       }
+
+       produtos.forEach(info);
+       
+        function mostrar(){
+            for(p of produtos){
+            console.log(p);
+        }
+        }
+
+        let it = produtos.values()
+        
+        console.log(it.next().value);
+
+        console.log(produtos.has("01"))
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

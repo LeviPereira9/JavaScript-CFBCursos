@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atributo hidden</title>
+    <style>
+        #caixa{
+            width: 150px;
+            height: 150px;
+            border: 1px solid black;
+            background-color: aqua;
+        }
+    </style>
+    <script>
+        var mesmo = 0;
+
+        function esconder(){
+            var caixa = document.getElementById("caixa");
+            
+            if(mesmo == 0){
+                caixa.hidden = false;
+                mesmo = 1;
+            } else {
+                caixa.hidden = true;
+                mesmo = 0;
+            }
+        }
+    </script>
+</head>
+<body>
+    <button onclick="esconder()">Esconder</button>
+    <div id="caixa"></div>
+</body>
+</html>
