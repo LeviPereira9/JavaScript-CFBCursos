@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async Await</title>
+    <script>
+
+        function contarPT(n){
+            let cont = 0;
+            let p = new Promise((resolvido, rejeitado) =>{
+                let t = setTimeout(()=>{
+                    for(let c = 0; n > c; c++){
+                        cont++
+                    }
+                    
+                    if(cont == n){
+                        resolvido(`O valor das soma é: ${cont}`);
+                    } else {
+                        rejeitado("ERRO");
+                    }
+                },3000)
+                
+            })
+
+            return p;
+        }
+
+        async function contarPTA(n){
+            const r = await contarPT(n);
+            document.write(r);
+        }
+
+        console.log(contarPTA(10));
+
+        /* contarPT(10)
+            .then(resolvido => console.log(`Valor dos positivos: ${resolvido}`))
+            .catch(rejeitado => console.log(rejeitado)); */
+
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

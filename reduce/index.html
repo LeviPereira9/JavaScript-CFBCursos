@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reduce</title>
+    <script>
+        let ciclo = 1;
+        let num = [0,1,2,3,4,5];
+        let soma = num.reduce((n1,n2)=>{
+            //console.log(`Ciclo ${ciclo}º = N1: ${n1} - N2:${n2}`)
+            ciclo++
+            return n1+n2
+            
+        })
+
+        let pessoa = [
+            {nome: "Bruno", idade: 40},
+            {nome: "Levi", idade: 22},
+            {nome: "Carlos", idade: 22},
+            {nome: "Henrique", idade: 22},
+        ]
+
+        let nome = pessoa.reduce((p1,p2)=>{
+            p1.push(p2.nome);
+            return p1;
+        }, [])
+
+        console.log(nome);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

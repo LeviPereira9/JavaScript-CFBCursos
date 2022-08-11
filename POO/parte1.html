@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programação Orientada a Objetos</title>
+    <script>
+
+        class Carro{
+            constructor(TpCarro,tipoCombustivel){ 
+                this.tipo = TpCarro//1 = Passeio, 2 = Transporte , 3 = Combate
+                this.quantidadeCombustivel = 100;
+                this.ligado = false;
+                this.tipoCombustivel = tipoCombustivel; //1 Gasolina - 2 Diesel - 3 Etanol
+            }
+
+            info(){
+                if(this.tipo == 1){
+                    console.log(`Tipo de carro:...........: Passeio`)
+                } else if(this.tipo == 2){
+                    console.log(`Tipo de carro:...........: Transporte`)
+                } else if(this.tipo == 3){
+                    console.log(`Tipo de carro:...........: Combate`)
+                } else {
+                    console.log("Tipo não catalogado!")
+                }
+                console.log(`Quantidade de Combustível: ${this.quantidadeCombustivel}`);
+                console.log(`Tipo de combustivel......: ${this.tipoCombustivel}`);
+                console.log(`Ligado...................: ${this.ligado ? "Sim" : "Não"}`);
+            }
+
+            set ligar(t){
+                this.ligado = t;
+            }
+
+             get ligadu(){
+                return this.ligado;
+            }
+
+            set Combustivel(valor){
+                if(valor < 0 || valor > 100){
+                    alert("Valor invalido");
+                } else {
+                    this.quantidadeCombustivel = valor;
+                }
+            }
+
+            get quanCombustivel(){
+                return this.quantidadeCombustivel;
+            }
+        };
+
+        class CarroCombate extends Carro {
+            constructor(calibre){
+                super(3,2);
+                this.munição = 1000;
+                this.calibre = calibre; 
+                this.blindagem = 100;
+            }
+
+            info(){
+                console.log("********************************************")
+                super.info()
+                console.log(`Quantidade de munição....: ${this.munição}`);
+                console.log(`Calibre..................: ${this.calibre}`)
+                console.log(`Blindagem:...............: ${this.blindagem}`)
+            }
+        }
+
+        class CarroTransporte extends Carro {
+            constructor(){
+                super(2,3)
+            }
+
+            info(){
+                console.log("********************************************")
+                super.info();
+            }
+
+        }
+
+        let Carro1 = new Carro(1,1);
+        let Carro2 = new CarroCombate(100);
+        let Carro3 = new CarroTransporte();
+
+        Carro1.ligar = true;
+        Carro2.ligar = true;
+        
+
+
+        Carro1.info();
+        Carro2.info();
+        Carro3.info();
+
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

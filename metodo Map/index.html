@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metodo Map</title>
+    <script>
+
+        let num = [1, 4, 9, 16, 25];
+        let raiz = num.map(Math.sqrt);
+        let dobro = num.map((n)=>{
+            return n*2;
+        });
+
+        for(r in raiz){
+            document.write(`Número: ${num[r]} = Raiz: ${raiz[r]} <br>`);
+        }
+        
+        console.log("---------------------------------------")
+
+        for(d in dobro){
+            document.write(`Número: ${num[d]} = Dobro: ${dobro[d]}<br>`)
+        }
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

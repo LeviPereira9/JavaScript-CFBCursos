@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Json</title>
+    <script>
+
+        let colabOBJ = [
+            {nome:"Levi", idade:22},
+            {nome:"Carlos", idade:23},
+            {nome: "Henrique", idade:21}
+        ]
+
+        let colabJSON = '[{"nome":"Levi","idade":22},{"nome":"Carlos","idade":23},{"nome":"Henrique","idade":21}]'
+
+        let c_objeto = JSON.stringify(colabOBJ);
+        let c_json = JSON.parse(colabJSON);
+
+        console.log(c_objeto);
+        console.log(c_json)
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
